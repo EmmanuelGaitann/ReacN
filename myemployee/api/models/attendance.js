@@ -6,7 +6,7 @@ const attendanceSchema = new mongoose.Schema({
     required: true,
   },
   employeeName: {
-    trype: String,
+    type: String,
     required: true,
   },
   date: {
@@ -19,5 +19,6 @@ const attendanceSchema = new mongoose.Schema({
   },
 });
 
-const Attendance = mongoose.model("attendance".attendanceSchema);
+const Attendance = mongoose.model('Attendance', attendanceSchema);
+
 module.exports = Attendance;
