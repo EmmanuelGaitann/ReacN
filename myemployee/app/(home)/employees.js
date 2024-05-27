@@ -45,6 +45,14 @@ const employees = () => {
         >
           <AntDesign name="search1" size={20} color="black" />
           <TextInput placeholder="recherche " />
+
+          {employees.length > 0 && (
+             <View>
+                <Pressable>
+                  
+                </Pressable>
+             </View>
+          )}
         </Pressable>
       </View>
     </View>
