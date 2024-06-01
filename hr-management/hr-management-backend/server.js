@@ -18,3 +18,18 @@ app.use("/api/employes", employeRoutes);
 app.listen(port, () => {
   console.log(`Serveur démarré sur le port ${port}`);
 });
+
+const absenceRoutes = require("./routes/absenceRoutes");
+app.use("/api/absences", absenceRoutes);
+
+const demandeAbsenceRoutes = require("./routes/demandeAbsenceRouttes");
+app.use("/api/demande-absence", demandeAbsenceRoutes);
+
+const typeAbsenceRoutes = require("./routes/typeAbsenceRoutes");
+app.use("/api/type-absence", typeAbsenceRoutes)
+
+const salaireRoutes = require("./routes/salaireRoutes");
+app.use("/api/salaires", salaireRoutes);
+
+const notificationRoutes = require("./routes/notificationRoutes");
+app.use("/api/notifications", notificationRoutes);
