@@ -1,5 +1,5 @@
 const express = require("express");
-const bodyParser = require("body-parser");
+const bodyparser = require("body-parser");
 const mongoose = require("mongoose");
 
 const app = express();
@@ -7,8 +7,8 @@ const port = 8000;
 const cors = require("cors");
 app.use(cors());
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(bodyparser.urlencoded({ extended: false }));
+app.use(bodyparser.json());
 
 mongoose
   .connect("mongodb+srv://emmanuel:emmanuel@cluster0.ni5q0nv.mongodb.net/", {
@@ -16,14 +16,14 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    console.log("Connecté à MongoDB");
+    console.log("connecté a mongo");
   })
   .catch((error) => {
-    console.log("Erreur de connection a MongoDb", error);
+    console.log("Erreur de connection a mongo", error);
   });
 
 app.listen(port, () => {
-  console.log("Serveur lancer sur le port 8000 le port");
+  console.log("Serveur lancé sur le port",port);
 });
 
 const Employee = require("./models/employee");
@@ -37,20 +37,20 @@ app.post("/addEmployee", async (req, res) => {
       employeeId,
       designation,
       phoneNumber,
-      dateOfBirth,
+      dateBirth,
       joiningDate,
       activeEmployee,
       salary,
       address,
     } = req.body;
 
-    //creation d'un nouvel employée
+    //create a new Employee
     const newEmployee = new Employee({
       employeeName,
       employeeId,
       designation,
       phoneNumber,
-      dateOfBirth,
+      dateBirth,
       joiningDate,
       activeEmployee,
       salary,
@@ -60,12 +60,12 @@ app.post("/addEmployee", async (req, res) => {
     await newEmployee.save();
 
     res.status(201).json({
-      message: "Reussit: l'enregistrement de l'employee",
-      employee: newEmployee,
+      message: "Employee Enregistré avec succes",
+      employe: newEmployee,
     });
   } catch (error) {
-    console.log("Echec Creation Emplyéé", error);
-    res.status(500).json({ message: "Echec Enregistrement Employee" });
+    console.log("Error creating employee", error);
+    res.status(500).json({ message: "Echec d'ajout d'employé" });
   }
 });
 
@@ -75,6 +75,6 @@ app.get("/employees", async (req, res) => {
     const employees = await Employee.find();
     res.status(200).json(employees);
   } catch (error) {
-    res.status(500).json({ message: "Echec de recuperation de l'employee" });
+    res.status(500).json({ message: "Echec de recuperation d'employee" });
   }
 });

@@ -1,17 +1,19 @@
-import { StyleSheet, Text, View, Pressable, TextInput } from "react-native";
+import { Pressable, StyleSheet, Text, View, TextInput } from "react-native";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
+import { router } from "expo-router";
 
 const employees = () => {
   const [employees, setEmployees] = useState([]);
+  const [input, setInput] = useState("");
   useEffect(() => {
     const fetchEmployeeData = async () => {
       try {
-        const response = await axios.get('https://localhost:8000/employees');
+        const response = await axios.get("http://localhost:8000/employees");
         setEmployees(response.data);
       } catch (error) {
-        console.log("Erreur a recuperer les données employées", error);
+        console.log("error fetching employee data", error);
       }
     };
     fetchEmployeeData();
@@ -44,17 +46,27 @@ const employees = () => {
           }}
         >
           <AntDesign name="search1" size={20} color="black" />
-          <TextInput placeholder="recherche " />
+          <TextInput
+            value={input}
+            onChangeText={(text) => setInput(text)}
+            style={{ flex: 1 }}
+            placeholder="recherche "
+          />
 
           {employees.length > 0 && (
-             <View>
-                <Pressable>
-                  
-                </Pressable>
-             </View>
+            <View>
+              <Pressable>
+                <AntDesign name="pluscircle" size={24} color="black" />
+              </Pressable>
+            </View>
           )}
         </Pressable>
       </View>
+
+
+      <Pressable onPress={() => router.push("/(home)/adddetails")}>
+        <AntDesign name="pluscircle" size={24} color="#0072b1" />
+      </Pressable>
     </View>
   );
 };
